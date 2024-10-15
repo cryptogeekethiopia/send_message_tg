@@ -5,9 +5,10 @@ import random
 import json
 from datetime import datetime
 
-# Your bot token and chat ID
+
 BOT_TOKEN = os.getenv('BOT_TOKEN')  # Replace 'BOT_TOKEN' with the name of your environment variable
 CHAT_ID = os.getenv('CHAT_ID')
+
 
 # Image to attach with every post (replace with the actual path to your image)
 PAYMENT_PROOF_IMAGE_PATH = './payment_proof.jpeg'
@@ -60,10 +61,10 @@ async def send_individual_payment_proof():
     
     try:
         # Send the message to the group
-        await bot.send_message(chat_id=CHAT_ID, text=payment_message)
+        await bot.send_photo(chat_id=CHAT_ID, photo=open(PAYMENT_PROOF_IMAGE_PATH, 'rb'))
         
         # Send the payment proof image
-        await bot.send_photo(chat_id=CHAT_ID, photo=open(PAYMENT_PROOF_IMAGE_PATH, 'rb'))
+        await bot.send_message(chat_id=CHAT_ID, text=payment_message)
         
         print(f"Posted payment proof for {full_name} at {datetime.now()}")
     except Exception as e:
@@ -72,10 +73,10 @@ async def send_individual_payment_proof():
 # Function to schedule the next post
 async def schedule_next_post():
     # Randomly select the delay between 15 seconds and 60 seconds
-    # delay = random.randint(30 * 60, 4 * 60 * 60)  # Random delay between 30 minutes and 4 hours
-    delay = random.randint(3, 7)  # Random delay between 30 minutes and 4 hours
+    delay = random.randint(30 * 60, 4 * 60 * 60)  # Random delay between 30 minutes and 4 hours
+    # delay = random.randint(3, 7)  # Random delay between 30 minutes and 4 hours
     # delay = random.randint(3, 10)  
-    print(f"Next post will be scheduled in {delay} minutes.")
+    print(f"Next post will be scheduled in {delay // 60} minutes.")
     
     # Schedule the next post
     await asyncio.sleep(delay)
