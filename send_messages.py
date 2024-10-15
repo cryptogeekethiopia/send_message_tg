@@ -1,3 +1,4 @@
+import os
 import telegram
 import asyncio
 import random
@@ -5,7 +6,8 @@ import json
 from datetime import datetime
 
 # Your bot token and chat ID
-BOT_TOKEN = '8013791771:AAHh3OWHLxDy47tQDJVYsfIfMiKIYjq14SI'
+BOT_TOKEN = os.getenv('BOT_TOKEN')  # Replace 'BOT_TOKEN' with the name of your environment variable
+CHAT_ID = os.getenv('CHAT_ID')
 CHAT_ID = '-1002297502018'
 
 # Image to attach with every post (replace with the actual path to your image)
