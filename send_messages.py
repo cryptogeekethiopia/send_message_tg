@@ -73,7 +73,7 @@ async def send_individual_payment_proof():
     random_name = get_random_name(names)
     withdrawal_message = get_random_withdrawal_message()
     full_name = f"{random_name['first_name']} {random_name['last_name']}"
-    payment_message = f"ክፍያ ማረጋገጫ (Payment Proof):\n\n  ስም: {full_name}\n\n  {withdrawal_message}\n\n  ቀን: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+    payment_message = f"ክፍያ ማረጋገጫ (Payment Proof):\n\n    ቀን: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')} ስም: {full_name}\n\n  {withdrawal_message}\n\n"
     
     try:
         # Use httpx to bypass SSL verification for this session
