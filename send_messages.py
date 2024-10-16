@@ -12,6 +12,7 @@ import httpx
 # Setup the bot
 BOT_TOKEN = os.getenv('BOT_TOKEN')
 CHAT_ID = os.getenv('CHAT_ID')
+
 PAYMENT_PROOF_IMAGE_PATH = './payment_proof.png'
 
 # Initialize bot with httpx to bypass SSL verification
@@ -73,7 +74,7 @@ async def send_individual_payment_proof():
     random_name = get_random_name(names)
     withdrawal_message = get_random_withdrawal_message()
     full_name = f"{random_name['first_name']} {random_name['last_name']}"
-    payment_message = f"ክፍያ ማረጋገጫ (Payment Proof):          ቀን: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n    ስም: {full_name}\n\n  {withdrawal_message}\n\n"
+    payment_message = f"ክፍያ ማረጋገጫ (Payment Proof):\n\n  ስም: {full_name}\n\n  {withdrawal_message}\n\n  ቀን: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n We couldnt post receipt for privacy concerns."
     
     try:
         # Use httpx to bypass SSL verification for this session
@@ -91,7 +92,7 @@ async def send_individual_payment_proof():
 async def schedule_next_post():
     await send_individual_payment_proof()
 
-    delay = random.randint(5 * 60,2 * 60 * 60)
+    delay = random.randint(180, 1 * 60 * 60)
     print(f"Next post will be scheduled in {delay / 60} minutes.")
     
     await asyncio.sleep(delay)
