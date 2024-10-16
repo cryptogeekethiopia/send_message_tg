@@ -12,7 +12,7 @@ import httpx
 # Setup the bot
 BOT_TOKEN = os.getenv('BOT_TOKEN')
 CHAT_ID = os.getenv('CHAT_ID')
-PAYMENT_PROOF_IMAGE_PATH = './payment_proof.jpeg'
+PAYMENT_PROOF_IMAGE_PATH = './payment_proof.png'
 
 # Initialize bot with httpx to bypass SSL verification
 bot = telegram.Bot(token=BOT_TOKEN)
@@ -89,9 +89,11 @@ async def send_individual_payment_proof():
 
 # Schedule the next post at a random interval between 30 minutes and 4 hours
 async def schedule_next_post():
-    delay = random.randint(30 * 60,3 * 60 * 60)
-    print(f"Next post will be scheduled in {delay / 60} minutes.")
     await send_individual_payment_proof()
+
+    delay = random.randint(5 * 60,2 * 60 * 60)
+    print(f"Next post will be scheduled in {delay / 60} minutes.")
+    
     await asyncio.sleep(delay)
     await schedule_next_post()
 
