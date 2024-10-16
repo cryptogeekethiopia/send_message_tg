@@ -89,7 +89,7 @@ async def send_individual_payment_proof():
 
 # Schedule the next post at a random interval between 30 minutes and 4 hours
 async def schedule_next_post():
-    delay = random.randint(30, 60)
+    delay = random.randint(30 * 60,3 * 60 * 60)
     print(f"Next post will be scheduled in {delay / 60} minutes.")
     await send_individual_payment_proof()
     await asyncio.sleep(delay)
